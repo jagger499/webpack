@@ -1,0 +1,10 @@
+{
+	// es para trabajar con js moderno
+	"presets" : [
+		"@babel/preset-env"
+	],
+	//  plugins de babel
+	"plugins": [
+		"@babel/plugin-transform-runtime"
+	]
+}
