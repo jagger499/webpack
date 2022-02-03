@@ -6,6 +6,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	// punto de entrada de la app
@@ -21,8 +22,11 @@ module.exports = {
 	},
     // guarda la configuracion a desarrollo
     mode: 'development',
+	// agregar herramientas de desarrollo para debug
+	devtool: 'source-map',
     // activar watcher de los cambios en webpack
-    watch: true,
+    // al activar el live serve se elimina
+    // watch: true,
 	resolve: {
 		// extension que va a leer el archivo
 		extensions: ['.js'],
@@ -100,5 +104,15 @@ module.exports = {
 		}),
 		// inicializando las variables de entorno
 		new Dotenv(),
+		// inicializando el bundle analizer
+		new BundleAnalyzerPlugin(),
 	],
+	// configuracion para server local
+	devServer: {
+		static: path.join(__dirname, 'dist'),
+		compress: true,
+		historyApiFallback: true,
+		port: 8080,
+		open: true,
+	},
 }
